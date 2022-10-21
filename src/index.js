@@ -1,12 +1,12 @@
 const express = require("express");
-const mongoose = require("mongoose");
-require("dotenv").config();
+const { connectDB } = require("./db");
 const articuloRoute = require("./routes/articulo");
 
 // settings
+connectDB();
 const app = express();
 
-// validation
+//validation
 const port = process.env.PORT || 9000;
 
 // middlewares
@@ -18,19 +18,12 @@ app.get("/", (req, res) => {
   res.send("Welcome to my API");
 });
 
-// mongodb connection
-mongoose
-  .connect(process.env.MONGODB_URI)
-  .then(() => console.log("Connected to MongoDB Atlas"))
-  .catch((error) => console.error(error));
-
-// // server listening
+// server listening
 app.listen(port, () => console.log("Server listening to", port));
-
 
 
 //package json
 // "scripts": {
 //     "start": "nodemon src/index.js" // development
 //     "start": "node index.js" // production
-//   },
+//   }
